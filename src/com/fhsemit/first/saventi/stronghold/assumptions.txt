@@ -1,0 +1,24 @@
+CANTalons: 1 is forward, -1 is backwards, and 0 is coast/brake
+DoubleSolenoids: forward is extend, reverse is contract
+
+PWM ports:
+	1 right climber
+	2 left wheel
+	3 right wheel
+	4 left climber
+	5 aux bicep
+	6 aux forearm
+	7 shooter wheel
+	8 shooter flap servo
+Soleniods:
+	1 pusher
+	2 climber left extend
+	3 climber left contract
+	4 climber right extend
+	5 climber left contract
+Relays:
+	0 shooter leaner
+
+CIM motors: forward is CCW
+AUX window motors: forward is towards the front of the robot
+Encoders: 40 pulses per revolution
