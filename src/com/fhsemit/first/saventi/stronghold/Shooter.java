@@ -1,7 +1,8 @@
 package com.fhsemit.first.saventi.stronghold;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
@@ -11,10 +12,6 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.Timer;
 
-/**
- * UNSTABLE
- *
- */
 
 public class Shooter {
 	private CANTalon shooterWheel;

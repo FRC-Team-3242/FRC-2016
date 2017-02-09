@@ -1,6 +1,6 @@
 package com.fhsemit.first.saventi.stronghold;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
 
 public class AuxArm {
 	//5 and 6

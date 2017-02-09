@@ -1,9 +1,9 @@
 
 package com.fhsemit.first.saventi.stronghold;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -13,13 +13,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * UNSTABLE max 79.388
- */
 public class Robot extends IterativeRobot {
 	final boolean simpleVision = true;
     final String reachAuto = "reach";
@@ -30,12 +26,6 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     int autoState;
     Timer autoTimer;
-    
-    final int targetX = 640;
-    final int targetY = 360;
-    final double xScalar = 1/1280;
-    final double yScalar = 1/720;
-    final int targetTolerance = 10;
     
     Joystick mainController;
     Joystick auxController;
@@ -87,7 +77,7 @@ public class Robot extends IterativeRobot {
         		new DoubleSolenoid(3,2), new AnalogInput(0));
         //auxArm = new AuxArm(new CANTalon(5),new CANTalon(6));
 
-        vision = new RPIVision();
+        vision = new RPIVision(drive);
     }
     
     private void drive(double left, double right){
@@ -100,24 +90,7 @@ public class Robot extends IterativeRobot {
     	drive.tankDrive(ly,ry);
     }
     
-    /**
-     * uses RPIVision to aim robot
-     */
-    private void aim(){
-    	if(vision.update()){
-    		double turn = vision.getX() - targetX;
-    		double move = vision.getY() - targetY;
-    		if(Math.abs(turn) < targetTolerance){
-    			turn = 0;
-    		}
-    		if(Math.abs(move) < targetTolerance){
-    			move = 0;
-    		}
-    		drive.arcadeDrive(move * yScalar, turn * xScalar);
-    	}else{
-    		drive.arcadeDrive(0, 0);
-    	}
-    }
+    
     
     private void auxControl(){
     	if(auxController.getRawButton(1)){						//A
@@ -162,22 +135,13 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	SmartDashboard.putBoolean("vision found", vision.update());
     	
-    	
     	//drive(mainController.getRawAxis(1), mainController.getRawAxis(5));
-    	drive.tankDrive(mainController.getRawAxis(1), mainController.getRawAxis(5));		//LY, RY
-        shooter.setFlipperAxis(mainController.getRawAxis(2) - mainController.getRawAxis(3));//LT - RT
-        shooter.setFlipperOverride(mainController.getRawButton(7), mainController.getRawButton(8));//select, start
-        shooter.setPush(mainController.getRawButton(5), mainController.getRawButton(6));	//LB, RB1
-        shooter.spinWheelTimer(mainController.getRawButton(2), mainController.getRawButton(3));//B, X
-        
-        /*	
-        if(auxController.getRawButton(5) && auxController.getRawButton(6)){ 				//LB and RB
-        	overrideToggle.toggle();
-        }
-        if(overrideToggle.getState()){
-        	auxControl();
-        }
-        */
+    	drive.tankDrive(mainController.getRawAxis(1), mainController.getRawAxis(5));				//LY, RY
+        shooter.setFlipperAxis(mainController.getRawAxis(2) - mainController.getRawAxis(3));		//LT - RT
+        shooter.setFlipperOverride(mainController.getRawButton(7), mainController.getRawButton(8));	//select, start
+        shooter.setPush(mainController.getRawButton(5), mainController.getRawButton(6));			//LB, RB
+        shooter.spinWheelTimer(mainController.getRawButton(2), mainController.getRawButton(3));		//B, X
+        vision.autoAim(mainController.getRawButton(0)); 											//???
         
         printDashboard();
     }
