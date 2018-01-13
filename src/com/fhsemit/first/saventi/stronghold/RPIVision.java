@@ -1,6 +1,7 @@
 package com.fhsemit.first.saventi.stronghold;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class RPIVision {
@@ -11,14 +12,14 @@ public class RPIVision {
 	private double y;
 
     private int aimState;
-    private RobotDrive drive;
+    private DifferentialDrive drive;
     private final int targetX = 640;
     private final int targetY = 360;
     private final double horizontalScalar = 1/1280;
     private final double verticalScalar = 1/720;
     private final double targetTolerance = 0.1;
 	
-	public RPIVision(RobotDrive drive){
+	public RPIVision(DifferentialDrive drive){
 		this.drive = drive;
 		table = NetworkTable.getTable("rpi");
 		found = false;

@@ -1,7 +1,7 @@
 
 package com.fhsemit.first.saventi.stronghold;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
     Toggle overrideToggle;
     Toggle arcadeDriveMode;//false is tank drive mode
     
-    RobotDrive drive;
+    DifferentialDrive drive;
     Encoder driveEncoder;
     final double turnScalar = 0.5;
     
@@ -68,14 +68,14 @@ public class Robot extends IterativeRobot {
         overrideToggle = new Toggle(false);
         arcadeDriveMode = new Toggle(false);
         
-        drive = new RobotDrive(new CANTalon(2),new CANTalon(3));
+        drive = new DifferentialDrive(new WPI_TalonSRX(2),new WPI_TalonSRX(3));
         driveEncoder = new Encoder(2,3,false,EncodingType.k2X);
         driveEncoder.setSamplesToAverage(10);
 		driveEncoder.setDistancePerPulse(0.025);
         
-        shooter = new Shooter(new CANTalon(7), new Relay(0,Relay.Direction.kBoth),
+        shooter = new Shooter(new WPI_TalonSRX(7), new Relay(0,Relay.Direction.kBoth),
         		new DoubleSolenoid(3,2), new AnalogInput(0));
-        //auxArm = new AuxArm(new CANTalon(5),new CANTalon(6));
+        //auxArm = new AuxArm(new WPI_TalonSRX(5),new WPI_TalonSRX(6));
 
         vision = new RPIVision(drive);
     }

@@ -1,14 +1,14 @@
 package com.fhsemit.first.saventi.stronghold;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class AuxArm {
 	//5 and 6
-	private CANTalon bicep;
-	private CANTalon foreArm;
+	private WPI_TalonSRX bicep;
+	private WPI_TalonSRX foreArm;
 	private final double speedLim = 0.4;
 	
-	public AuxArm(CANTalon bicep,CANTalon fore){
+	public AuxArm(WPI_TalonSRX bicep,WPI_TalonSRX fore){
 		this.bicep = bicep;
 		this.foreArm = fore;
 	}

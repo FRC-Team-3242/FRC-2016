@@ -1,7 +1,6 @@
 package com.fhsemit.first.saventi.stronghold;
 
-import com.ctre.CANTalon;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -14,7 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 
 public class Shooter {
-	private CANTalon shooterWheel;
+	private WPI_TalonSRX shooterWheel;
 	private Relay flipper;
 	AnalogInput flipPot;
 	private DoubleSolenoid pusher;
@@ -38,7 +37,7 @@ public class Shooter {
 	private final double extendMax = 3.76;//TODO MAX: 4.175 - 4.26
 	private final double retractMax = 0.19;//0.002	
 	
-	public Shooter(CANTalon wheel, Relay flip, DoubleSolenoid push, AnalogInput flipPot){
+	public Shooter(WPI_TalonSRX wheel, Relay flip, DoubleSolenoid push, AnalogInput flipPot){
 		this.shooterWheel = wheel;
 		this.flipper = flip;
 		this.flipPot = flipPot;

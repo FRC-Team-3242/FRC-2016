@@ -1,20 +1,19 @@
 package com.fhsemit.first.saventi.stronghold;
 
-import com.ctre.CANTalon;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class Climber {
-	CANTalon leftArm;
-	CANTalon rightArm;
+	WPI_TalonSRX leftArm;
+	WPI_TalonSRX rightArm;
 	private DoubleSolenoid leaner;
 	public Encoder encoder;
 	private final double maxDist = 79.35;//79.388
 	private final double minDist = -3;
 	
-	public Climber(CANTalon left, CANTalon right, DoubleSolenoid leaner, Encoder encoder){
+	public Climber(WPI_TalonSRX left, WPI_TalonSRX right, DoubleSolenoid leaner, Encoder encoder){
 		if(right != null){
 			right.setInverted(true);
 		}
